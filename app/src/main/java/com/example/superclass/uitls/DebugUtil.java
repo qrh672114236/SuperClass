@@ -21,4 +21,11 @@ public class DebugUtil {
         //dosomething
     }
 
+
+    /**
+     * terminal 检测代码
+     *
+     * gradlew compileDebugSources
+     */
+
 }
