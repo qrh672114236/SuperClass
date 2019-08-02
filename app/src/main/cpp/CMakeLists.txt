@@ -1,44 +1,50 @@
 # For more information about using CMake with Android Studio, read the
 # documentation: https://d.android.com/studio/projects/add-native-code.html
 
-# Sets the minimum version of CMake required to build the native library.
+# 指定Cmake需要的最低版本
 
 cmake_minimum_required(VERSION 3.4.1)
 
-# Creates and names a library, sets it as either STATIC
-# or SHARED, and provides the relative paths to its source code.
-# You can define multiple libraries, and CMake builds them for you.
-# Gradle automatically packages shared libraries with your APK.
+# 创建和命名该库  （使用多个 add_library() 命令，您可以为 CMake 定义要从其他源文件构建的更多库）
+# 第一参数：配置库的名字
+# 第二参数：指定库的类型   SHARED(.so 动态库)  STATIC（.a 静态库）
+# 第三个参数是指库的路径
 
-add_library( # Sets the name of the library.
+add_library(
         native-lib
-
-        # Sets the library as a shared library.
         SHARED
-
-        # Provides a relative path to your source file(s).
+        #gif
+        gif/dgif_lib.c
+        gif/gifalloc.c
         native-lib.cpp)
 
-# Searches for a specified prebuilt library and stores the path as a
-# variable. Because CMake includes system libraries in the search path by
-# default, you only need to specify the name of the public NDK library
-# you want to add. CMake verifies that the library exists before
-# completing its build.
+# 找到一个ndk的库，并将这个库路径存在一个变量中
 
-find_library( # Sets the name of the path variable.
+find_library(
         log-lib
-
-        # Specifies the name of the NDK library that
-        # you want CMake to locate.
         log)
+find_library(
+        jnigraphics-lib
+        jnigraphics )
 
-# Specifies libraries CMake should link to your target library. You
-# can link multiple libraries, such as libraries you define in this
-# build script, prebuilt third-party libraries, or system libraries.
+# 关联库。将指定的库关联起来 。
 
 target_link_libraries( # Specifies the target library.
         native-lib
+        ${log-lib}
+        ${jnigraphics-lib}
+        )
 
-        # Links the target library to the log library
-        # included in the NDK.
-        ${log-lib})
+
+# 生成可执行文件
+
+# add_executable(demo demo.cpp)
+
+#包含多个 cpp
+
+# add_library(demo demo.cpp test.cpp util.cpp)
+
+#搜索当前目录下的所有.cpp文件
+
+# aux_source_directory(. SRC_LIST)
+# add_library(demo ${SRC_LIST})

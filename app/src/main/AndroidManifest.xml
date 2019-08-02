@@ -4,10 +4,9 @@
     package="com.example.superclass">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <uses-permission-sdk-23 android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <uses-permission-sdk-23 android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".battery.BatteryActivity"/>
+        <activity android:name=".file.FileActivityActivity"></activity>
+        <activity android:name=".gif.GifActivity" />
+        <activity android:name=".hotfix.HotFixActivity" />
+        <activity android:name=".reinforce.ReinforceActivity" />
+        <activity android:name=".battery.BatteryActivity" />
         <activity android:name=".memory.MemoryOptActivity" />
         <activity android:name=".property.PropertyOptActivity" />
         <activity android:name=".image.ImageOptActivity" />
@@ -27,8 +30,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!--电池优化-->
+        </activity> <!-- 电池优化 -->
         <receiver android:name=".battery.PowerConnectionReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
@@ -40,15 +42,11 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        <service android:name=".battery.MyJobService"
+
+        <service
+            android:name=".battery.MyJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":location">
-
-        </service>
-
-
-
-
+            android:process=":location" />
     </application>
 
 </manifest>

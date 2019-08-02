@@ -28,4 +28,12 @@ public class DebugUtil {
      * gradlew compileDebugSources
      */
 
+
+    /**
+     * 自定义收缩
+     *
+     * 框选代码   按Ctrl + Alt + T 选择 “region .. end region comments”  回车
+     *
+     */
+
 }

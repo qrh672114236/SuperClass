@@ -9,9 +9,15 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //ndk配置
         externalNativeBuild {
             cmake {
                 cppFlags "-std=c++14"
+                //arguments  "-D变量名=参数"  给变量传递参数
+                // arguments "-DANDROID_ARM_NEON=TRUE",
+                // arguments "-D变量名=参数1 参数2"传递多个参数
+                // "-DANDROID_CPP_FEATURES=rtti exceptions"
             }
         }
     }
@@ -21,12 +27,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     externalNativeBuild {
         cmake {
+            //cmake路径
             path "src/main/cpp/CMakeLists.txt"
             version "3.10.2"
         }
     }
+//    ndk {
+//        abiFilters 'armeabi','armeabi-v7a','arm64-v8a','x86','x86_64','mips','mips64'
+//    }
 }
 
 dependencies {
@@ -36,4 +47,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation files('libs\\sun.misc.BASE64Decoder.jar')
 }
