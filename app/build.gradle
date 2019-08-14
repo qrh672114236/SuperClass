@@ -1,10 +1,31 @@
 apply plugin: 'com.android.application'
 
+
+//9.0-28
+//Pie (Android P)
+//8.1-27
+//Oreo(Android O)（奥利奥）
+//8.0-26
+//Oreo(Android O)（奥利奥）
+//7.1-25
+//Nougat(Android N)（牛轧糖）
+//7.0-24
+//Nougat(Android N)（牛轧糖）
+//6.0-23
+//Marshmallow(Android M)（棉花糖）
+//5.1-22
+//Lollipop(Android L)（棒棒糖）
+//5.0-21
+//Lollipop(Android L)（棒棒糖）
+//4.4-19
+//KITKAT（奇巧巧克力）
+
+
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.superclass"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -14,8 +35,14 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags "-std=c++14"
+
+                abiFilters "armeabi-v7a"
+
+                //abiFilters 编译abi设置
+
                 //arguments  "-D变量名=参数"  给变量传递参数
                 // arguments "-DANDROID_ARM_NEON=TRUE",
+
                 // arguments "-D变量名=参数1 参数2"传递多个参数
                 // "-DANDROID_CPP_FEATURES=rtti exceptions"
             }
@@ -31,12 +58,12 @@ android {
     externalNativeBuild {
         cmake {
             //cmake路径
-            path "src/main/cpp/CMakeLists.txt"
+            path "CMakeLists.txt"
             version "3.10.2"
         }
     }
 //    ndk {
-//        abiFilters 'armeabi','armeabi-v7a','arm64-v8a','x86','x86_64','mips','mips64'
+//        abiFilters 'armeabi','armeabi-v7a','arm64-v8a','x86','x86_64'
 //    }
 }
 

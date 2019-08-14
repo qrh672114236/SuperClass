@@ -5,8 +5,13 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-permission-sdk-23 android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +21,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".file.FileActivityActivity"></activity>
+        <activity android:name=".media.ffmpeg.dongnao.DNFFmpegActivity"></activity>
+        <activity android:name=".ui.TouchEventActivity" /> <!-- 7.0 文件读写权限 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.superclass.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/path" />
+        </provider>
+
+        <activity android:name=".media.ffmpeg.FFmpegActivity" />
+        <activity android:name=".file.FileActivityActivity" />
         <activity android:name=".gif.GifActivity" />
         <activity android:name=".hotfix.HotFixActivity" />
         <activity android:name=".reinforce.ReinforceActivity" />

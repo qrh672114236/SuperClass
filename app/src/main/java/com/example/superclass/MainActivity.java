@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.superclass.gif.GifActivity;
 import com.example.superclass.image.ImageOptActivity;
+import com.example.superclass.media.ffmpeg.FFmpegActivity;
 
  public class MainActivity extends AppCompatActivity {
 
@@ -19,7 +20,8 @@ import com.example.superclass.image.ImageOptActivity;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startActivity(new Intent(this,GifActivity.class));
+
+        startActivity(new Intent(this, FFmpegActivity.class));
 
 
     }

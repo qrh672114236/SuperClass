@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <paths>
+        <files-path path="files" name="files" />
+        <cache-path path="files" name="cache" />
+        <external-path path="files" name="external" />
+        <external-files-path path="files" name="externalfiles"/>
+        <!-- 此标签需要 support 25.0.0以上才可以使用-->
+        <external-cache-path  path="files" name="externalcache"/>
+        <root-path name="root" path="" />
+    </paths>
+</resources>
+
+
+    <!--file-path :  物理路径为Context.getFilesDir() + /files/*   -->
+    <!--cache-path :  	物理路径为Context.getCacheDir() + /files/*   -->
+    <!--external-path : 物理路径为Environment.getExternalStorageDirectory() + /files/*   -->
+    <!--external-files-path : 物理路径为Context.getExternalFilesDir(String) + /files/*   -->
+    <!--external-cache-path :  物理路径为Context.getExternalCacheDir() + /files/*   -->
+    <!--external-root-path :  	物理路径相当于 /path/*   -->

@@ -40,20 +40,20 @@ public class GifActivity extends AppCompatActivity {
         }
     };
 
+    static {
+        System.loadLibrary("gif");
+    }
 
     public void ndkLoadGif(View view){
-//        File file=new File(Environment.getExternalStorageDirectory(),"demo.gif");
-         Environment.getExternalStorageDirectory();
+        File file = new File(Environment.getExternalStorageDirectory(), "demo.gif");
 
-//        gifHandler=new GifHandler(file.getPath());
-//
-//        int width=gifHandler.getWidth();
-//        int height=gifHandler.getHeight();
-//        bitmap=Bitmap.createBitmap(width,height,Bitmap.Config.ARGB_8888);
-//
-//        //下一帧 刷新
-//        int mNextFrame = gifHandler.updateFrame(bitmap);
-//        handler.sendEmptyMessageDelayed(1,mNextFrame);
+        int width = gifHandler.getWidth();
+        int height = gifHandler.getHeight();
+        bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+        //下一帧 刷新
+        int mNextFrame = gifHandler.updateFrame(bitmap);
+        handler.sendEmptyMessageDelayed(1, mNextFrame);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
