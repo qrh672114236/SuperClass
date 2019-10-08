@@ -18,9 +18,9 @@ public class DNFFmpegActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dnffmpeg);
         player=new DNPlayer();
-
-        player.setSurfaceView((SurfaceView) findViewById(R.id.surfaceView));
-        player.setDataSource("");
+        SurfaceView surfaceView=(SurfaceView) findViewById(R.id.surfaceView);
+        player.setSurfaceView(surfaceView);
+        player.setDataSource("http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8");
         player.setOnPrepareListener(new DNPlayer.onPrepareListener() {
             @Override
             public void onPrepare() {
@@ -28,10 +28,9 @@ public class DNFFmpegActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(DNFFmpegActivity.this,"开始播放",Toast.LENGTH_SHORT).show();
-                        player.start();
-
                     }
                 });
+                player.start();
             }
         });
 

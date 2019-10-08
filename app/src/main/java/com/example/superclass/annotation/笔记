@@ -1,0 +1,51 @@
+
+
+四个元注解 ：专门注解其他注解
+
+@Documented –注解是否将包含在JavaDoc中 （生成到注释中）
+
+@Retention –什么时候使用该注解
+
+    RetentionPolicy.SOURCE : 只保留在源码中，不保留在class中，同时也不加载到虚拟机中 。在编译阶段丢弃。这些注解在编译结束之后就不再有任何意义，所以它们不会写入字节码。
+
+    RetentionPolicy.CLASS : 保留在源码中，同时也保留到class中，但是不加载到虚拟机中 。在类加载的时候丢弃。在字节码文件的处理中有用。注解默认使用这种方式
+
+    RetentionPolicy.RUNTIME : 保留到源码中，同时也保留到class中，最后加载到虚拟机中。始终不会丢弃，运行期也保留该注解，因此可以使用反射机制读取该注解的信息。我们自定义的注解通常使用这种方式。
+
+
+@Target –注解用于什么地方
+
+    ElementType.FIELD 注解作用于变量
+
+    ElementType.TYPE：可作用在类、接口、枚举上
+
+    ElementType.ANNOTATION_TYPE：可以作用在注解上
+
+    ElementType.METHOD 注解作用于方法
+
+    ElementType.PARAMETER 注解作用于参数
+
+    ElementType.CONSTRUCTOR 注解作用于构造方法
+
+    ElementType.LOCAL_VARIABLE 注解作用于局部变量
+
+    ElementType.PACKAGE 注解作用于包
+
+@Inherited – 是否允许子类继承该注解 （是否允许被注释的class的子类继承该注解 默认false）
+
+
+@Repeatable   是可重复的意思，它是java1.8引入的，算一个新特性。
+
+     public @Interface Persons {
+         Person[] value();
+     }
+
+     @Repeatable(Persons.class)
+     public @Interface Person {
+         String role() default ""
+     }
+
+     @Person("artist")
+     @Person("developer")
+     @Person("superman")
+     public class Me {}

@@ -1,0 +1,106 @@
+线程：程序运行时被分配的最小单位（CPU调度最小单位）
+进程：一个被分配资源的App
+
+
+
+wait 会释放锁
+
+notify（不能确定唤醒哪个线程） notifyAll
+
+
+
+Handler:
+
+
+  App启动时 ThreadLocal set 全局唯一的Looper
+
+  Message.target  ->Handler
+
+
+
+
+  Thread :
+
+    run()//包含线程运行时所执行的代码（就是执行了一个普通类的run方法）
+
+    start()//用于启动线程（不可以同时调用两次 ）
+
+    sleep()/sleep(long millis)//线程休眠，交出CPU，让CPU去执行其他的任务，然后线程进入阻塞状态，sleep方法不会释放锁
+
+    yield()//使当前线程交出CPU，让CPU去执行其他的任务，但不会是线程进入阻塞状态，而是重置为就绪状态，yield方法不会释放锁
+
+    面试：如何让两个子线程顺序执行
+    join()/join(long millis)/join(long millis,int nanoseconds)    //等待线程终止，直白的说 就是发起该子线程的线程 只有等待该子线程运行结束才能继续往下运行
+
+    wait()//交出cpu，让CPU去执行其他的任务，让线程进入阻塞状态，同时也会释放锁
+
+    interrupt()//中断线程，自stop函数过时之后，我们通过interrupt方法和isInterrupted()方法来停止正在运行的线程，注意只能中断已经处于阻塞的线程(只是给线程设置中断标示)
+
+    interrupted（）检测当前线程中断状态 第二次状态就会被清空
+
+    getId()//获取当前线程的ID
+
+    getName()/setName()//获取和设置线程的名字
+
+    getPriority()/setPriority()//获取和这是线程的优先级 一般property用1-10的整数表示，默认优先级是5，优先级最高是10，优先级高的线程被执行的机率高
+
+    setDaemon()/isDaemo()//设置和判断是否是守护线程
+
+    currentThread()//静态函数获取当前线程
+
+    线程同步问题
+
+            1.全局 Boolean 判断
+            2.synchronized 锁
+            3.volatile 标记变量
+
+                a.volatile关键字为域变量的访问提供了一种免锁机制，
+                b.使用volatile修饰域相当于告诉虚拟机该域可能会被其他线程更新，
+                c.因此每次使用该域就要重新计算，而不是使用寄存器中的值
+                d.volatile不会提供任何原子操作，它也不能用来修饰final类型的变量
+
+
+ExecutorService:
+        1.）new Thread()的缺点
+    每次new Thread()耗费性能
+    调用new Thread()创建的线程缺乏管理，被称为野线程，而且可以无限制创建，之间相互竞争，会导致过多占用系统资源导致系统瘫痪。
+    不利于扩展，比如如定时执行、定期执行、线程中断
+        2.）采用线程池的优点
+    重用存在的线程，减少对象创建、消亡的开销，性能佳
+    可有效控制最大并发线程数，提高系统资源的使用率，同时避免过多资源竞争，避免堵塞
+    提供定时执行、定期执行、单线程、并发数控制等功能
+
+    创建线程 ：
+    通过Executors提供四种线程池，newFixedThreadPool、newCachedThreadPool、newSingleThreadExecutor、newScheduledThreadPool。··
+
+
+
+    锁： Lock  和 synchronized
+
+    Lock ：可以获取当前锁的状态 控制锁  但是必须主动释放
+
+          lock()、tryLock()、tryLock(long time, TimeUnit unit)和lockInterruptibly():用来获取锁的
+
+          Lock lock = ...;
+          lock.lock();
+          try{
+              //处理任务
+          }catch(Exception ex){
+
+          }finally{
+              lock.unlock();   //释放锁
+          }
+
+            tryLock()、tryLock(long time, TimeUnit unit)  获取锁 会返回true，false  第二个方法是设置获取锁等待的时长
+
+          unLock():用来释放锁的
+
+
+    synchronized：不需要手动释放 执行完 或者发生异常 JVM会自动释放锁
+
+
+    公平锁和非公平锁 （公平锁 要更消耗 因为 挂机等待的时候 上下文切换 更耗时）
+
+    ReentrantLock:可重入锁
+
+

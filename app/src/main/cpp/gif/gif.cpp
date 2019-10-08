@@ -1,42 +1,15 @@
 #include <jni.h>
 #include <string>
-#include "gif/gif_lib.h"
-#include "fix/art_method.h"
+#include "gif_lib.h"
 #include <android/bitmap.h>
 #include <android/log.h>
 #include <malloc.h>
 #define  LOG_TAG    "qq"
 #define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
 #define  argb(a,r,g,b) ( ((a) & 0xff) << 24 ) | ( ((b) & 0xff) << 16 ) | ( ((g) & 0xff) << 8 ) | ((r) & 0xff)
-
-
 /**
- * linux 编译 ：
- *      编译so命令：  gcc -fPIC -shared xxx.c -o xxx.o
- *      编译可执行文件： gcc -rdynamic -o xxx xxx.c -ldl
+ * gif加载优化 cpp
  */
-extern "C"
-JNIEXPORT void JNICALL
-Java_com_example_superclass_hotfix_DexManager_replace(JNIEnv *env, jclass type, jobject bugMethod,
-                                                      jobject method) {
-
-    //获取 ArtMethod 系统源码头文件
-    art::mirror::ArtMethod *bug = (art::mirror::ArtMethod *) env->FromReflectedMethod(bugMethod);
-    art::mirror::ArtMethod *right = (art::mirror::ArtMethod *) env->FromReflectedMethod(method);
-
-    bug->declaring_class_ = right->declaring_class_;
-    bug->dex_cache_resolved_methods_ = right->dex_cache_resolved_methods_;
-    bug->access_flags_ = right->access_flags_;
-    bug->dex_cache_resolved_types_ = right->dex_cache_resolved_types_;
-    bug->dex_code_item_offset_ = right->dex_code_item_offset_;
-    //方法索引替换
-    bug->method_index_ = right->method_index_;
-    bug->method_dex_index_ = right->method_dex_index_;
-}
-
-
-
-//region ======================gif加载优化=========================
 
 typedef struct GifBean {
 
@@ -44,6 +17,7 @@ typedef struct GifBean {
     int total_frame;
     int *dealys;
 } GifBean;
+
 
 //绘制一张图片
 void drawFrame(GifFileType *gifFileType, GifBean *gifBean, AndroidBitmapInfo info, void **pixels) {
@@ -62,7 +36,7 @@ void drawFrame(GifFileType *gifFileType, GifBean *gifBean, AndroidBitmapInfo inf
     int *line;
     for (int y = frameInfo.Top; y < frameInfo.Top+frameInfo.Height; ++y) {
         for (int x = frameInfo.Left; x <frameInfo.Left+frameInfo.Width; ++x) {
-           pointPixel= (y-frameInfo.Top)*frameInfo.Width+(x-frameInfo.Left);
+            pointPixel= (y-frameInfo.Top)*frameInfo.Width+(x-frameInfo.Left);
 
             gifByteType= savedImage.RasterBits[pointPixel];
             GifColorType gifColorType=colorMapObject->Colors[gifByteType];
@@ -157,5 +131,3 @@ Java_com_example_superclass_gif_GifHandler_updateFrame(JNIEnv *env,
 
     return gifBean->dealys[gifBean->current_frame];
 }
-//endregion
-

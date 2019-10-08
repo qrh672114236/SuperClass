@@ -24,16 +24,19 @@ public:
     void _prepare();
     void start();
     void _start();
+    void stop();
+    void setRenderFrameCallBack(RenderFrameCallback callback);
 
-
-private:
+public:
     char*dataSource;
     pthread_t pid;
     pthread_t pid_play;
-    AVFormatContext *formatContext;
-    JavaCallHelper *callHelper;
+    pthread_t pid_stop;
+    AVFormatContext *formatContext=0;
+    JavaCallHelper *callHelper=0;
     AudioChannel *audioChannel=0;
     VideoChannel *videoChannel=0;
+    RenderFrameCallback callback;
     bool  isPlaying;
 };
 

@@ -1,6 +1,6 @@
 
-add_library(native SHARED native.cpp)
+add_library(cxx SHARED cxx/cxx.cpp)
 #依赖库
 find_library(log-lib log)
 
-target_link_libraries(native ${log-lib})
+target_link_libraries(cxx ${log-lib})

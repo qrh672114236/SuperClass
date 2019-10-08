@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".GuidActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:text="老夫的Android技术笔记"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btn1"
+                android:text="M V V M"
+                style="@style/ButtonThem"/>
+
+            <Button
+                android:id="@+id/btn2"
+                android:text="Handler"
+                style="@style/ButtonThem"/>
+            <Button
+                android:id="@+id/btn3"
+                android:text="插桩式插件化"
+                style="@style/ButtonThem"/>
+
+            <Button
+                android:id="@+id/btn4"
+                android:text="AOP"
+                style="@style/ButtonThem"/>
+
+            <Button
+                android:id="@+id/btn5"
+                style="@style/ButtonThem"
+                android:text="EventBus"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

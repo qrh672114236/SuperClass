@@ -5,10 +5,19 @@ package com.example.superclass.uitls;
  */
 public class linux {
 
-
-    //解压缩：zip : unzip   xxx.zip
-
     //下载 wget url
+
+    //tar –xvf file.tar //解压 tar包
+    //tar -xzvf file.tar.gz //解压tar.gz
+    //tar -xjvf file.tar.bz2   //解压 tar.bz2
+    //tar –xZvf file.tar.Z   //解压tar.Z
+    //unrar e file.rar //解压rar
+    //unzip file.zip //解压zip
+
+
+    // rm 文件名 删除文件
+
+    //查找 是否端口可用 lsof -i:8080
 
 
     /**

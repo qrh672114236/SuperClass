@@ -3,16 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.superclass">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission-sdk-23 android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,8 +11,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".media.ffmpeg.dongnao.DNFFmpegActivity"></activity>
-        <activity android:name=".ui.TouchEventActivity" /> <!-- 7.0 文件读写权限 -->
+        <activity android:name=".binder.BinderActivity"></activity>
+        <activity android:name=".eventbus.test.ReciverActivity" />
+        <activity android:name=".eventbus.test.EventBusActivity" />
+        <activity android:name=".aop.proxy.LoginActivity" />
+        <activity android:name=".aop.AopJavaActivity" />
+        <activity android:name=".plugin.PluginMainActivity" />
+        <activity android:name=".thread.HandlerActivity" />
+        <activity android:name=".GuidActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".framework.mvvm.databinding.DataBindingActivity" />
+        <activity android:name=".media.ffmpeg.dongnao.DNFFmpegActivity" />
+        <activity android:name=".ui.TouchEventActivity" />
+        <activity
+            android:name=".plugin.ProxyActivity"
+            android:launchMode="standard" /> <!-- 7.0 文件读写权限 -->
+        <activity android:name=".media.ffmpeg.FFmpegActivity" /> <!-- 插件化代理Activity -->
+        <activity android:name=".file.FileActivityActivity" />
+        <activity android:name=".gif.GifActivity" />
+        <activity android:name=".hotfix.HotFixActivity" />
+        <activity android:name=".reinforce.ReinforceActivity" />
+        <activity android:name=".battery.BatteryActivity" />
+        <activity android:name=".memory.MemoryOptActivity" />
+        <activity android:name=".property.PropertyOptActivity" />
+        <activity android:name=".image.ImageOptActivity" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.superclass.fileProvider"
@@ -33,28 +51,12 @@
                 android:resource="@xml/path" />
         </provider>
 
-        <activity android:name=".media.ffmpeg.FFmpegActivity" />
-        <activity android:name=".file.FileActivityActivity" />
-        <activity android:name=".gif.GifActivity" />
-        <activity android:name=".hotfix.HotFixActivity" />
-        <activity android:name=".reinforce.ReinforceActivity" />
-        <activity android:name=".battery.BatteryActivity" />
-        <activity android:name=".memory.MemoryOptActivity" />
-        <activity android:name=".property.PropertyOptActivity" />
-        <activity android:name=".image.ImageOptActivity" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity> <!-- 电池优化 -->
         <receiver android:name=".battery.PowerConnectionReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
-        </receiver>
+        </receiver> <!-- 电池优化 -->
         <receiver android:name=".battery.WifiConnectionReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -62,9 +64,22 @@
         </receiver>
 
         <service
+            android:name=".binder.BinderService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
             android:name=".battery.MyJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:process=":location" />
     </application>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission-sdk-23 android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
 </manifest>

@@ -1,0 +1,102 @@
+APO分为静态代理以及动态代理 ：
+    静态代理：Aspect
+    动态代理: CGLib
+
+
+
+
+
+
+
+
+minSdk:24  AspectJ需要依赖maven仓库
+
+app:
+dependencies {
+    ...
+    compile 'org.aspectj:aspectjrt:1.8.9'
+}
+
+外层
+dependencies {
+        classpath 'org.aspectj:aspectjtools:1.8.9'
+        classpath 'org.aspectj:aspectjweaver:1.8.9'
+    }
+
+
+ import org.aspectj.bridge.IMessage
+ import org.aspectj.bridge.MessageHandler
+ import org.aspectj.tools.ajc.Main
+
+ final def log = project.logger
+ final def variants = project.android.applicationVariants
+
+ //在构建工程时，执行编辑
+ variants.all { variant ->
+     if (!variant.buildType.isDebuggable()) {
+         log.debug("Skipping non-debuggable build type '${variant.buildType.name}'.")
+         return;
+     }
+
+     JavaCompile javaCompile = variant.javaCompile
+     javaCompile.doLast {
+         String[] args = ["-showWeaveInfo",
+                          "-1.9",
+                          "-inpath", javaCompile.destinationDir.toString(),
+                          "-aspectpath", javaCompile.classpath.asPath,
+                          "-d", javaCompile.destinationDir.toString(),
+                          "-classpath", javaCompile.classpath.asPath,
+                          "-bootclasspath", project.android.bootClasspath.join(File.pathSeparator)]
+         log.debug "ajc args: " + Arrays.toString(args)
+
+         MessageHandler handler = new MessageHandler(true);
+         new Main().run(args, handler);
+         for (IMessage message : handler.getMessages(null, true)) {
+             switch (message.getKind()) {
+                 case IMessage.ABORT:
+                 case IMessage.ERROR:
+                 case IMessage.FAIL:
+                     log.error message.message, message.thrown
+                     break;
+                 case IMessage.WARNING:
+                     log.warn message.message, message.thrown
+                     break;
+                 case IMessage.INFO:
+                     log.info message.message, message.thrown
+                     break;
+                 case IMessage.DEBUG:
+                     log.debug message.message, message.thrown
+                     break;
+             }
+         }
+     }
+ }
+
+
+ 注解使用
+        @Aspect：声明切面，标记类
+        @Pointcut(切点表达式)：定义切点，标记方法
+        @Before(切点表达式)：前置通知，切点之前执行
+        @Around(切点表达式)：环绕通知，切点前后执行
+        @After(切点表达式)：后置通知，切点之后执行
+        @AfterReturning(切点表达式)：返回通知，切点方法返回结果之后执行
+        @AfterThrowing(切点表达式)：异常通知，切点抛出异常时执行
+
+
+Signature 语法明细
+
+@注解 ：@+完整路径 可以使用通配符*
+
+访问权限 ： public /private /protect 以及 static/final 如果没有则不写  public 会匹配 public final 或public static
+
+返回值类型 ：如果不限定类型 使用通配符 *
+
+类名.函数名 可以使用通配符*   构造函数名只能为new
+
+变量类型 成员变量类型 ，*代表任意类型
+
+类名 成员变量名 可以使用通配符
+
+参数
+
+

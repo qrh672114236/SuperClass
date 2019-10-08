@@ -1,0 +1,17 @@
+
+
+    Android 启动模式原理
+
+        1.adb 查看tasks ：adb shell dumpsys activity activities | sed -En -e '/Stack #/p' -e '/Running activities/,/Run #0/p'
+
+        2.ActivityA 启动 ActivityB
+                A（onPause） B(onCreate onStart onResume) A（onStop...）
+
+          ActivityB 返回 ActivityA
+                B（onPause） A（onRestart onStart onResume）B(onStop）
+
+                    注：可以在onStop里面做Activity的finish
+
+                        singleTop singleTask singleInstance 如果在栈里面存在 startActivity 重用 会执行 onNewIntent生命周期
+
+                        启动activity的时候可以设置 taskAffinity 在新的栈里面启动

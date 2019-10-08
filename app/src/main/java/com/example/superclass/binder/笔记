@@ -1,0 +1,5 @@
+
+
+        AIDL ：
+            支持八种基本数据类型byte、char、short、int、long、float、double、boolean String，CharSequence
+

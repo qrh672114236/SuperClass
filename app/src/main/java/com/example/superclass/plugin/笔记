@@ -1,0 +1,10 @@
+插件化笔记
+
+    1.插桩式
+
+     数组的顺序是按照manifest的标签顺序 存储的
+    getPackageInfo()!!.activities[0].name
+
+    2.Hook技术
+
+    3.反射（9.0限制）
